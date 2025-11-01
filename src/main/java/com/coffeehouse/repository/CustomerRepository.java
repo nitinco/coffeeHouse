@@ -1,0 +1,14 @@
+package com.coffeehouse.repository;
+
+import com.coffeehouse.entity.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Optional<Customer> findByEmail(String email);
+
+    Optional<Customer> findByRoleIgnoreCase(String role);
+    Optional<Customer> findByUserName(String userName);
+
+}

@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: coffeehouse_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword       # change this to a strong password
+      MYSQL_DATABASE: my_database             # optional: creates a database on startup
+      MYSQL_USER: my_user                     # optional: creates a new user
+      MYSQL_PASSWORD: my_password             # password for the above user
+    ports:
+      - "3306:3306"                           # host_port:container_port
+    volumes:
+      - mysql_data:/var/lib/mysql             # persist MySQL data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # optional: initialize database with SQL script
+    networks:
+      - mysql_network
+
+volumes:
+  mysql_data:
+
+networks:
+  mysql_network:
+    driver: bridge
